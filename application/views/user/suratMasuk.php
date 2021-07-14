@@ -45,8 +45,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($surat_masuk as $sm) : ?>
+                        <?php $i = 1;
+                        foreach ($surat_masuk as $sm) : ?>
                             <tr>
                                 <td scope="row" class="text-center"><?= $i; ?></td>
                                 <td class="text-center"><?= $sm['no_surat']; ?></td>
@@ -56,7 +56,7 @@
                                 <td class="text-center"><?= $sm['perihal']; ?></td>
                                 <td class="text-center"><?= $sm['disposisi']; ?></td>
                                 <td class="text-center">
-                                    <a class="btn btn-sm btn-success mb-3" href="<?= base_url('user/updateSuratMasuk'); ?>">Update</a>
+                                    <a href="<?= base_url()?>User/updateSM/<?= $sm['id']; ?>" class="btn btn-sm btn-info mb-3">Update</a>
                                     <a class="btn btn-sm btn-danger mb-3" href="<?= base_url('user/deleteSM/') . $sm['id']; ?>" onclick="return confirm('Yakin Data ini akan dihapus?');">Delete</a>
                                     <a class="btn btn-sm btn-warning mb-3" href="">Print</a>
                                 </td>

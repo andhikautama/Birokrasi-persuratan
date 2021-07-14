@@ -208,6 +208,31 @@ class User extends CI_Controller
         }
     }
 
+    public function updateSM($id)
+    {
+        $data['title'] = 'Form Update Surat Masuk';
+        $data['user'] = $this->db->get_where('user', ['username' =>
+        $this->session->userdata('username')])->row_array();
+        $data['surat_masuk']= $this->surat_model->ambil_id_surat($id);
+        // $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
+
+        // $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
+        // $this->form_validation->set_rules('username', 'Username', 'required|trim');
+
+        // if ($this->form_validation->run() == false) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/updateSM', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function proses_edit_data($id)
+    {
+        $this->surat_model->proses_edit_data($id);
+        redirect('User');
+    }
+
     public function deleteSM($id)
     {
         $this->surat_model->hapus_suratMasuk($id);
@@ -218,21 +243,21 @@ class User extends CI_Controller
     }
     
 
-    public function updateSuratMasuk()
-    {
-        $data['title'] = 'Form Update Surat Masuk';
-        $data['user'] = $this->db->get_where('user', ['username' =>
-        $this->session->userdata('username')])->row_array();
+    // public function updateSuratMasuk()
+    // {
+    //     $data['title'] = 'Form Update Surat Masuk';
+    //     $data['user'] = $this->db->get_where('user', ['username' =>
+    //     $this->session->userdata('username')])->row_array();
 
-        $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
+    //     $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/updateSuratMasuk', $data);
-        $this->load->view('templates/footer');
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('user/updateSuratMasuk', $data);
+    //     $this->load->view('templates/footer');
     
-    }
+    // }
 
     public function suratKeluar()
     {
