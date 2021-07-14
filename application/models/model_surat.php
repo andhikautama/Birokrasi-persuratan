@@ -13,8 +13,8 @@ class model_surat extends CI_Model
 
     public function detail($id)
     {
-        $data['title']='Detail Surat Masuk';
-        $data['user']=$this->model_surat->getsuratmasukByID($id);
+        $data['title'] = 'Detail Surat Masuk';
+        $data['user'] = $this->model_surat->getsuratmasukByID($id);
         $this->load->view('template/header', $data);
         $this->load->view('mahasiswa/detail', $data);
         $this->load->view('template/footer');
@@ -26,6 +26,4 @@ class model_surat extends CI_Model
         $this->db->delete('surat_keluar');
         // return $this->db->table($this->surat_keluar)->delete(['id_suratKeluar' => $id]);
     }
-
-    
 }

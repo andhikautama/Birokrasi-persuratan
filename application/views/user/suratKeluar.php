@@ -22,7 +22,7 @@
                     Tambah Surat Keluar
                 </a>
 
-                    <!-- Kolom Search -->
+                <!-- Kolom Search -->
                 <div class="input-group rounded mb-3 mr-lg-5">
                     <input type="search" class="rounded mr-2 border-0" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
                     <!-- <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
@@ -56,7 +56,7 @@
                                 <td class="text-center"><?= $sk['perihal']; ?></td>
                                 <td class="text-center"><?= $sk['disposisi']; ?></td>
                                 <td class="text-center">
-                                    <a class="btn btn-sm btn-success mb-3" href="<?= base_url('user/updateSuratKeluar'); ?>">Update</a>
+                                    <a class="btn btn-sm btn-success mb-3" href="<?= base_url() ?>user/updateSuratKeluar/<?= $sk['id_suratKeluar']; ?>">Update</a>
                                     <a class="btn btn-sm btn-danger mb-3" href="<?= base_url('user/deleteSK/') . $sk['id_suratKeluar']; ?>" onclick="return confirm('Yakin Data ini akan dihapus?');">Delete</a>
                                     <a class="btn btn-sm btn-warning mb-3" href="">Print</a>
                                 </td>

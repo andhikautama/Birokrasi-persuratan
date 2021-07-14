@@ -7,13 +7,13 @@
 	<div class="row">
 		<div class="col-lg">
 			<?php if (validation_errors()) : ?>
-			<div class="alert alert-danger" roles="alert">
-				<?= validation_errors(); ?></div>
+				<div class="alert alert-danger" roles="alert">
+					<?= validation_errors(); ?></div>
 			<?php endif; ?>
 
 			<?= $this->session->flashdata('message'); ?>
 
-            <!-- Button tambah Surat Dispo -->
+			<!-- Button tambah Surat Dispo -->
 			<div class="table-responsive">
 				<hr style="margin:0px">
 				<br>
@@ -25,8 +25,7 @@
 
 				<!-- Kolom Search -->
 				<div class="input-group rounded mb-3 mr-lg-5">
-					<input type="search" class="rounded mr-2 border-0" placeholder="Search" aria-label="Search"
-						aria-describedby="search-addon">
+					<input type="search" class="rounded mr-2 border-0" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
 					<!-- <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                     aria-describedby="search-addon" /> -->
 					<span class="input-group-text border-0" id="search-addon">
@@ -52,35 +51,32 @@
 					<tbody>
 						<?php $i = 1; ?>
 						<?php foreach ($disposisi as $d) : ?>
-						<tr>
-							<td scope="row" class="text-center"><?= $i; ?></td>
-							<td class="text-center text-gray-800"><?= $d['id_disposisi']; ?></td>
-							<td class="text-center text-gray-800"><?= $d['surat_dari']; ?></td>
-							<td class="text-center text-gray-800"><?= date('d F Y', strtotime($d['tgl_surat'])); ?></td>
+							<tr>
+								<td scope="row" class="text-center"><?= $i; ?></td>
+								<td class="text-center text-gray-800"><?= $d['id_disposisi']; ?></td>
+								<td class="text-center text-gray-800"><?= $d['surat_dari']; ?></td>
+								<td class="text-center text-gray-800"><?= date('d F Y', strtotime($d['tgl_surat'])); ?></td>
 
-							<td class="text-center text-gray-800"><?= $d['no_surat']; ?></td>
-							<td class="text-center text-gray-800"><?= date('d F Y', strtotime($d['diterima_tgl'])); ?>
-							</td>
+								<td class="text-center text-gray-800"><?= $d['no_surat']; ?></td>
+								<td class="text-center text-gray-800"><?= date('d F Y', strtotime($d['diterima_tgl'])); ?>
+								</td>
 
-							<td class="text-center text-gray-800"><?= $d['no_agenda']; ?></td>
-							<td class="text-center text-gray-800"><?= $d['perihal']; ?></td>
-							<td class="text-center text-gray-800"><?= $d['diteruskan_kepada']; ?></td>
-							<td class="text-center text-gray-800"><?= $d['isi_disposisi']; ?></td>
-							<td class="text-center">
-								<a class="btn btn-sm btn-success mb-3" 
-									href="<?= base_url('user/updateDisposisi/'); ?>">
-									Edit
-								</a>
-								<a class="btn btn-sm btn-danger mb-3"
-									href="<?= base_url('user/deleteDisposisi/') . $d['id_disposisi']; ?>"
-									onclick="return confirm('Yakin Data ini akan dihapus?');">Delete</a>
-								<a class="btn btn-sm btn-warning mb-3" href="<?= base_url('user/printDisposisi/') . $d['id_disposisi']; ?>">Print</a>
-								<a class="btn btn-sm btn-info m-0" href="<?= base_url('user/detail/') . $d['id_disposisi']; ?>" >
-									Detail
-								</a>
-							</td>
-						</tr>
-						<?php $i++; ?>
+								<td class="text-center text-gray-800"><?= $d['no_agenda']; ?></td>
+								<td class="text-center text-gray-800"><?= $d['perihal']; ?></td>
+								<td class="text-center text-gray-800"><?= $d['diteruskan_kepada']; ?></td>
+								<td class="text-center text-gray-800"><?= $d['isi_disposisi']; ?></td>
+								<td class="text-center">
+									<a class="btn btn-sm btn-success mb-3" href="<?= base_url() ?>user/updateDisposisi/<?= $d['id_disposisi']; ?>">
+										Edit
+									</a>
+									<a class="btn btn-sm btn-danger mb-3" href="<?= base_url('user/deleteDisposisi/') . $d['id_disposisi']; ?>" onclick="return confirm('Yakin Data ini akan dihapus?');">Delete</a>
+									<a class="btn btn-sm btn-warning mb-3" href="<?= base_url('user/printDisposisi/') . $d['id_disposisi']; ?>">Print</a>
+									<a class="btn btn-sm btn-info m-0" href="<?= base_url('user/detail/') . $d['id_disposisi']; ?>">
+										Detail
+									</a>
+								</td>
+							</tr>
+							<?php $i++; ?>
 						<?php endforeach; ?>
 					</tbody>
 				</table>
@@ -98,8 +94,7 @@
 <!-- Button trigger modal -->
 
 <!-- Modal Tambah Surat Keluar -->
-<div class="modal fade" id="newDisposisiModal" tabindex="-1" aria-labelledby="newDisposisiModalLabel"
-	aria-hidden="true">
+<div class="modal fade" id="newDisposisiModal" tabindex="-1" aria-labelledby="newDisposisiModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -136,8 +131,7 @@
 					</div>
 					<div class="form-group text-gray-800">
 						<b><label for="diteruskan_kepada">Diteruskan Kepada</label></b>
-						<input type="text" class="form-control" id="diteruskan_kepada" name="diteruskan_kepada"
-							placeholder="">
+						<input type="text" class="form-control" id="diteruskan_kepada" name="diteruskan_kepada" placeholder="">
 					</div>
 					<div class="form-group text-gray-800">
 						<b><label for="isi_disposisi">Isi Disposisi</label></b>

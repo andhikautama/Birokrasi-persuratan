@@ -213,9 +213,9 @@ class User extends CI_Controller
         $data['title'] = 'Form Update Surat Masuk';
         $data['user'] = $this->db->get_where('user', ['username' =>
         $this->session->userdata('username')])->row_array();
-        $data['surat'] = $this->surat_model->getsuratByID($id);
+        $data['surat_masuk'] = $this->surat_model->getsuratByID($id);
 
-        $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
+        // $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
 
         $this->form_validation->set_rules('no_surat', 'no_surat', 'required');
         $this->form_validation->set_rules('tgl_suratMasuk', 'tgl_suratMasuk', 'required');
@@ -234,11 +234,11 @@ class User extends CI_Controller
         } else {
 
             $this->surat_model->ubahdatasrt();
-            $this->session->set_flashdata('flash-data', 'diedit');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Surat Masuk Berhasil Diubah!</div>');
             redirect('user/suratMasuk', 'refresh');
         }
     }
-    
+
 
     // public function updateSuratMasuk()
     // {
@@ -253,7 +253,7 @@ class User extends CI_Controller
     //     $this->load->view('templates/topbar', $data);
     //     $this->load->view('user/updateSuratMasuk', $data);
     //     $this->load->view('templates/footer');
-    
+
     // }
 
     public function suratKeluar()
@@ -354,55 +354,37 @@ class User extends CI_Controller
         // }
         // echo "<script>window.location='" . site_url('user/') . "';</script>";
     }
-    
 
-    public function updateSuratKeluar()
+
+    public function updateSuratKeluar($id)
     {
         $data['title'] = 'Form Update Surat Keluar';
         $data['user'] = $this->db->get_where('user', ['username' =>
         $this->session->userdata('username')])->row_array();
+        $data['surat_keluar'] = $this->surat_model->getsuratKeluarByID($id);
 
-        $data['surat_keluar'] = $this->db->get('surat_keluar')->result_array();
+        // $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
 
-        // $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
-        // $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('no_surat', 'no_surat', 'required');
+        $this->form_validation->set_rules('tgl_suratKeluar', 'tgl_suratKeluar', 'required');
+        $this->form_validation->set_rules('pengirim', 'pengirim', 'required');
+        $this->form_validation->set_rules('penerima', 'penerima', 'required');
+        $this->form_validation->set_rules('perihal', 'perihal', 'required');
+        $this->form_validation->set_rules('disposisi', 'disposisi', 'required');
 
-        // if ($this->form_validation->run() == false) {
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/updateSuratKeluar', $data);
-        $this->load->view('templates/footer');
-        // } else {
-        //     $noSK = $this->input->post('no_surat');
-        //     $tglSK = $this->input->post('tgl_suratKeluar');
-        //     $pengirim = $this->input->post('pengirim');
-        //     $penerima = $this->input->post('penerima');
-        //     $perihal = $this->input->post('perihal');
-        //     $disposisi = $this->input->post('disposisi');
+        if ($this->form_validation->run() == FALSE) {
 
-        //  Cek Jika Ada Gambar Yang Akan di Upload   
-        // $upload_image = $_FILES['image']['name'];
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/updateSuratKeluar', $data);
+            $this->load->view('templates/footer');
+        } else {
 
-        // if ($upload_image) {
-        //     $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        //     $config['max_size']     = '2048';
-        //     $config['upload_path'] = './assets/img/profile/';
-
-        //     $this->load->library('upload', $config);
-
-        //     if ($this->upload->do_upload('image')) {
-
-        //         $old_image = $data['user']['image'];
-        //         if ($old_image != 'default.jpg') {
-        //             unlink(FCPATH . 'assets/img/profile/' . $old_image);
-        //         }
-
-        //         $new_image = $this->upload->data('file_name');
-        //         $this->db->set('image', $new_image);
-        //     } else {
-        //         echo $this->upload->dispaly_errors();
-        //     }
+            $this->surat_model->updateDataSuratKeluar();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Surat Keluar Berhasil Update!</div>');
+            redirect('user/suratKeluar', 'refresh');
+        }
     }
 
     // $this->db->set('username', $username);
@@ -426,11 +408,11 @@ class User extends CI_Controller
         $this->session->userdata('username')])->row_array();
         // $this->load->model('suratKeluar_model', 'suratKeluar');
 
-    // public function disposisi()
-    // {
-    //     $data['title'] = 'Disposisi';
-    //     $data['user'] = $this->db->get_where('user', ['username' =>
-    //     $this->session->userdata('username')])->row_array();
+        // public function disposisi()
+        // {
+        //     $data['title'] = 'Disposisi';
+        //     $data['user'] = $this->db->get_where('user', ['username' =>
+        //     $this->session->userdata('username')])->row_array();
         $data['disposisi'] = $this->db->get('disposisi')->result_array();
         $this->form_validation->set_rules('surat_dari', 'Surat Dari', 'required');
         $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
@@ -441,12 +423,12 @@ class User extends CI_Controller
         $this->form_validation->set_rules('diteruskan_kepada', 'Diteruskan Kepada', 'required');
         $this->form_validation->set_rules('isi_disposisi', 'Isi Disposisi', 'required');
 
-    //     $this->load->view('templates/header', $data);
-    //     $this->load->view('templates/sidebar', $data);
-    //     $this->load->view('templates/topbar', $data);
-    //     $this->load->view('user/disposisi', $data);
-    //     $this->load->view('templates/footer');
-    // }
+        //     $this->load->view('templates/header', $data);
+        //     $this->load->view('templates/sidebar', $data);
+        //     $this->load->view('templates/topbar', $data);
+        //     $this->load->view('user/disposisi', $data);
+        //     $this->load->view('templates/footer');
+        // }
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -463,7 +445,7 @@ class User extends CI_Controller
                 'perihal' => $this->input->post('perihal'),
                 'diteruskan_kepada' => $this->input->post('diteruskan_kepada'),
                 'isi_disposisi' => $this->input->post('isi_disposisi')
-            
+
             ];
             $this->db->insert('disposisi', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Surat Disposisi Berhasil Ditambah!
@@ -506,16 +488,18 @@ class User extends CI_Controller
                 'perihal' => $this->input->post('perihal'),
                 'diteruskan_kepada' => $this->input->post('diteruskan_kepada'),
                 'isi_disposisi' => $this->input->post('isi_disposisi')
-            
+
             ];
             $this->db->insert('disposisi', $data);
-            $this->session->set_flashdata('message', 
-            '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            $this->session->set_flashdata(
+                'message',
+                '<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Surat disposisi berhasil ditambah!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>');
+            </div>'
+            );
             redirect('user/disposisi');
         }
     }
@@ -542,25 +526,23 @@ class User extends CI_Controller
     //     $this->load->view('templates/footer');
     // }
 
-    public function updateDisposisi($id_disposisi){
+    public function updateDisposisi($id_disposisi)
+    {
         $data['title'] = 'Form Update Data Disposisi';
         $data['user'] = $this->db->get_where('user', ['username' =>
         $this->session->userdata('username')])->row_array();
-        $where = array('id_disposisi' => $id_disposisi);
 
-        $data['disposisi'] = $this->db->query("select * from disposisi dd, 
-            where dd.id_disposisi='$id_disposisi'")->result();
-        $data['disposisi'] = $this->surat_model->tampil_data('disposisi')->result();
-        $data['disposisi'] = $this->db->get('disposisi')->result_array();
-        $this->form_validation->set_rules('id_disposisi', 'Id Disposisi', 'required');
-        $this->form_validation->set_rules('surat_dari', 'Surat Dari', 'required');
-        $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
-        $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
-        $this->form_validation->set_rules('diterima_tgl', 'Diterima Tanggal', 'required');
-        $this->form_validation->set_rules('no_agenda', 'Nomor Agenda', 'required');
-        $this->form_validation->set_rules('perihal', 'Perihal', 'required');
-        $this->form_validation->set_rules('diteruskan_kepada', 'Diteruskan Kepada', 'required');
-        $this->form_validation->set_rules('isi_disposisi', 'Isi Disposisi', 'required');
+        $data['disposisi'] = $this->surat_model->getDisposisiByID($id_disposisi);
+
+        // $this->form_validation->set_rules('id_disposisi', 'Id Disposisi', 'required');
+        $this->form_validation->set_rules('surat_dari', 'surat_dari', 'required');
+        $this->form_validation->set_rules('tgl_surat', 'tgl_surat', 'required');
+        $this->form_validation->set_rules('no_surat', 'no_surat', 'required');
+        $this->form_validation->set_rules('diterima_tgl', 'diterima_tgl', 'required');
+        $this->form_validation->set_rules('no_agenda', 'no_agenda', 'required');
+        $this->form_validation->set_rules('perihal', 'perihal', 'required');
+        $this->form_validation->set_rules('diteruskan_kepada', 'diteruskan_kepada', 'required');
+        $this->form_validation->set_rules('isi_disposisi', 'isi_disposisi', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -569,82 +551,41 @@ class User extends CI_Controller
             $this->load->view('user/updateDisposisi', $data);
             $this->load->view('templates/footer');
         } else {
-            $data = [
-                'surat_dari' => $this->input->post('surat_dari'),
-                'tgl_surat' => $this->input->post('tgl_surat'),
-                'no_surat' => $this->input->post('no_surat'),
-                'diterima_tgl' => $this->input->post('diterima_tgl'),
-                'no_agenda' => $this->input->post('no_agenda'),
-                'perihal' => $this->input->post('perihal'),
-                'diteruskan_kepada' => $this->input->post('diteruskan_kepada'),
-                'isi_disposisi' => $this->input->post('isi_disposisi')
-            ];
-            // $this->db->insert('disposisi', $data);
-            $this->surat_model->edit_disposisi($id_disposisi);
-            $this->session->set_flashdata('message', 
+
+            $this->surat_model->ubahDataDisposisi();
+            $this->session->set_flashdata(
+                'message',
                 '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Surat disposisi berhasil dihapus!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>');
-        
+                </div>'
+            );
+
             redirect('user/disposisi', 'refresh');
         }
-    }
-
-    public function updateAksiDisposisi(){
-        $id_disposisi = $this->input->post('id_disposisi');
-        $surat_dari = $this->input->post('surat_dari');
-        $tgl_surat = $this->input->post('tgl_surat');
-        $no_surat = $this->input->post('no_surat');
-        $diterima_tgl = $this->input->post('diterima_tgl');
-        $no_agenda = $this->input->post('no_agenda');
-        $perihal = $this->input->post('perihal');
-        $isi_disposisi = $this->input->post('isi_disposisi');
-        
-        $data = array (
-            'surat_dari' => $surat_dari,
-            'tgl_surat' => $tgl_surat,
-            'no_surat' => $no_surat,
-            'diterima_tgl' => $diterima_tgl,
-            'no_agenda' => $no_agenda,
-            'perihal' => $perihal,
-            'isi_disposisi' => $isi_disposisi
-        );
-
-        $where = array(
-            'id_disposisi' => $id_disposisi
-        );
-
-        $this->surat_model->update_data($where, $data, 'disposisi');
-        $this->session->set_flashdata('message', 
-                '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Surat disposisi berhasil di edit!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>');
-        
-            redirect('user/disposisi', 'refresh');
     }
 
     public function deleteDisposisi($id)
     {
         $this->surat_model->hapus_disposisi($id);
-        
-        $this->session->set_flashdata('message', 
-        '<div class="alert alert-success alert-dismissible fade show" role="alert">
+
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible fade show" role="alert">
             Surat disposisi berhasil dihapus!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-        </div>');
-        
+        </div>'
+        );
+
         redirect('user/disposisi');
     }
 
-    public function detail($id_disposisi){
+    public function detail($id_disposisi)
+    {
         $data['title'] = 'Detail Surat Disposisi';
         $data['user'] = $this->db->get_where('user', ['username' =>
         $this->session->userdata('username')])->row_array();
