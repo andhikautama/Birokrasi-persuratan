@@ -213,33 +213,30 @@ class User extends CI_Controller
         $data['title'] = 'Form Update Surat Masuk';
         $data['user'] = $this->db->get_where('user', ['username' =>
         $this->session->userdata('username')])->row_array();
-        $data['surat_masuk']= $this->surat_model->ambil_id_surat($id);
-        // $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
+        $data['surat'] = $this->surat_model->getsuratByID($id);
 
-        // $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
-        // $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $data['surat_masuk'] = $this->db->get('surat_masuk')->result_array();
 
-        // if ($this->form_validation->run() == false) {
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/updateSM', $data);
-        $this->load->view('templates/footer');
-    }
+        $this->form_validation->set_rules('no_surat', 'no_surat', 'required');
+        $this->form_validation->set_rules('tgl_suratMasuk', 'tgl_suratMasuk', 'required');
+        $this->form_validation->set_rules('pengirim', 'pengirim', 'required');
+        $this->form_validation->set_rules('penerima', 'penerima', 'required');
+        $this->form_validation->set_rules('perihal', 'perihal', 'required');
+        $this->form_validation->set_rules('disposisi', 'disposisi', 'required');
 
-    public function proses_edit_data($id)
-    {
-        $this->surat_model->proses_edit_data($id);
-        redirect('User');
-    }
+        if ($this->form_validation->run() == FALSE) {
 
-    public function deleteSM($id)
-    {
-        $this->surat_model->hapus_suratMasuk($id);
-    
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Surat Masuk Berhasil Dihapus!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/updateSM', $data);
+            $this->load->view('templates/footer');
+        } else {
 
-        redirect('user/suratMasuk');
+            $this->surat_model->ubahdatasrt();
+            $this->session->set_flashdata('flash-data', 'diedit');
+            redirect('user/suratMasuk', 'refresh');
+        }
     }
     
 
