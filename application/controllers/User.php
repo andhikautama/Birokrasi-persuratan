@@ -426,6 +426,11 @@ class User extends CI_Controller
         $this->session->userdata('username')])->row_array();
         // $this->load->model('suratKeluar_model', 'suratKeluar');
 
+    // public function disposisi()
+    // {
+    //     $data['title'] = 'Disposisi';
+    //     $data['user'] = $this->db->get_where('user', ['username' =>
+    //     $this->session->userdata('username')])->row_array();
         $data['disposisi'] = $this->db->get('disposisi')->result_array();
         $this->form_validation->set_rules('surat_dari', 'Surat Dari', 'required');
         $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
@@ -436,6 +441,12 @@ class User extends CI_Controller
         $this->form_validation->set_rules('diteruskan_kepada', 'Diteruskan Kepada', 'required');
         $this->form_validation->set_rules('isi_disposisi', 'Isi Disposisi', 'required');
 
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('user/disposisi', $data);
+    //     $this->load->view('templates/footer');
+    // }
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -509,8 +520,10 @@ class User extends CI_Controller
         }
     }
 
+    // public function tambahDisposisi()
     // public function updateDisposisi()
     // {
+    //     $data['title'] = 'Form Tambah Data Disposisi';
     //     $data['title'] = 'Form Update Disposisi';
     //     $data['user'] = $this->db->get_where('user', ['username' =>
     //     $this->session->userdata('username')])->row_array();
@@ -524,6 +537,7 @@ class User extends CI_Controller
     //     $this->load->view('templates/header', $data);
     //     $this->load->view('templates/sidebar', $data);
     //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('user/tambahDisposisi', $data);
     //     $this->load->view('user/updateDisposisi', $data);
     //     $this->load->view('templates/footer');
     // }
