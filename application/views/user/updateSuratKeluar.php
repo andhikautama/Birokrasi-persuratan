@@ -11,11 +11,13 @@
     </div>
 
     <hr class="border border-dark border-5 mt-1">
-
+    
     <div class="form-group row">
         <label for="no_surat" class="col-sm-2 col-form-label">No. Surat</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="no_surat" name="no_surat" value="<?= $surat_keluar['no_surat']; ?>">
+            <input type="text" class="form-control" id="no_surat" name="no_surat" value="<?= $surat_keluar['no_surat']; ?>"
+            
+            >
             <?= form_error('no_surat', '<small class="text-danger pl-3">', ' </small>'); ?>
         </div>
     </div>

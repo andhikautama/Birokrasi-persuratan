@@ -422,30 +422,229 @@ class User extends CI_Controller
     //     redirect('user/updateSuratKeluar');
     // }
 
+    public function Disposisi()
+    {
+        $data['title'] = 'Disposisi';
+        $data['user'] = $this->db->get_where('user', ['username' =>
+        $this->session->userdata('username')])->row_array();
+        // $this->load->model('suratKeluar_model', 'suratKeluar');
 
-    // public function disposisi()
+        $data['disposisi'] = $this->db->get('disposisi')->result_array();
+        $this->form_validation->set_rules('surat_dari', 'Surat Dari', 'required');
+        $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
+        $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
+        $this->form_validation->set_rules('diterima_tgl', 'Diterima Tanggal', 'required');
+        $this->form_validation->set_rules('no_agenda', 'Nomor Agenda', 'required');
+        $this->form_validation->set_rules('perihal', 'Perihal', 'required');
+        $this->form_validation->set_rules('diteruskan_kepada', 'Diteruskan Kepada', 'required');
+        $this->form_validation->set_rules('isi_disposisi', 'Isi Disposisi', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/disposisi', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = [
+                'surat_dari' => $this->input->post('surat_dari'),
+                'tgl_surat' => $this->input->post('tgl_surat'),
+                'no_surat' => $this->input->post('no_surat'),
+                'diterima_tgl' => $this->input->post('diterima_tgl'),
+                'no_agenda' => $this->input->post('no_agenda'),
+                'perihal' => $this->input->post('perihal'),
+                'diteruskan_kepada' => $this->input->post('diteruskan_kepada'),
+                'isi_disposisi' => $this->input->post('isi_disposisi')
+            
+            ];
+            $this->db->insert('disposisi', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Surat Disposisi Berhasil Ditambah!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> </div>');
+            redirect('user/disposisi');
+        }
+    }
+
+    public function tambahDisposisi()
+    {
+        $data['title'] = 'Form Tambah Data Disposisi';
+        $data['user'] = $this->db->get_where('user', ['username' =>
+        $this->session->userdata('username')])->row_array();
+
+        $data['disposisi'] = $this->db->get('disposisi')->result_array();
+        $this->form_validation->set_rules('surat_dari', 'Surat Dari', 'required');
+        $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
+        $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
+        $this->form_validation->set_rules('diterima_tgl', 'Diterima Tanggal', 'required');
+        $this->form_validation->set_rules('no_agenda', 'Nomor Agenda', 'required');
+        $this->form_validation->set_rules('perihal', 'Perihal', 'required');
+        $this->form_validation->set_rules('diteruskan_kepada', 'Diteruskan Kepada', 'required');
+        $this->form_validation->set_rules('isi_disposisi', 'Isi Disposisi', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/tambahDisposisi', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = [
+                'surat_dari' => $this->input->post('surat_dari'),
+                'tgl_surat' => $this->input->post('tgl_surat'),
+                'no_surat' => $this->input->post('no_surat'),
+                'diterima_tgl' => $this->input->post('diterima_tgl'),
+                'no_agenda' => $this->input->post('no_agenda'),
+                'perihal' => $this->input->post('perihal'),
+                'diteruskan_kepada' => $this->input->post('diteruskan_kepada'),
+                'isi_disposisi' => $this->input->post('isi_disposisi')
+            
+            ];
+            $this->db->insert('disposisi', $data);
+            $this->session->set_flashdata('message', 
+            '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Surat disposisi berhasil ditambah!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>');
+            redirect('user/disposisi');
+        }
+    }
+
+    // public function updateDisposisi()
     // {
-    //     $data['title'] = 'Disposisi';
+    //     $data['title'] = 'Form Update Disposisi';
     //     $data['user'] = $this->db->get_where('user', ['username' =>
     //     $this->session->userdata('username')])->row_array();
 
+    //     $data['disposisi'] = $this->db->get('disposisi')->result_array();
+
+    //     $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
+    //     $this->form_validation->set_rules('username', 'Username', 'required|trim');
+
+    //     if ($this->form_validation->run() == false) {
     //     $this->load->view('templates/header', $data);
     //     $this->load->view('templates/sidebar', $data);
     //     $this->load->view('templates/topbar', $data);
-    //     $this->load->view('user/disposisi', $data);
+    //     $this->load->view('user/updateDisposisi', $data);
     //     $this->load->view('templates/footer');
     // }
 
-    // public function tambahDisposisi()
-    // {
-    //     $data['title'] = 'Form Tambah Data Disposisi';
-    //     $data['user'] = $this->db->get_where('user', ['username' =>
-    //     $this->session->userdata('username')])->row_array();
+    public function updateDisposisi($id_disposisi){
+        $data['title'] = 'Form Update Data Disposisi';
+        $data['user'] = $this->db->get_where('user', ['username' =>
+        $this->session->userdata('username')])->row_array();
+        $where = array('id_disposisi' => $id_disposisi);
 
-    //     $this->load->view('templates/header', $data);
-    //     $this->load->view('templates/sidebar', $data);
-    //     $this->load->view('templates/topbar', $data);
-    //     $this->load->view('user/tambahDisposisi', $data);
-    //     $this->load->view('templates/footer');
-    // }
+        $data['disposisi'] = $this->db->query("select * from disposisi dd, 
+            where dd.id_disposisi='$id_disposisi'")->result();
+        $data['disposisi'] = $this->surat_model->tampil_data('disposisi')->result();
+        $data['disposisi'] = $this->db->get('disposisi')->result_array();
+        $this->form_validation->set_rules('id_disposisi', 'Id Disposisi', 'required');
+        $this->form_validation->set_rules('surat_dari', 'Surat Dari', 'required');
+        $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
+        $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
+        $this->form_validation->set_rules('diterima_tgl', 'Diterima Tanggal', 'required');
+        $this->form_validation->set_rules('no_agenda', 'Nomor Agenda', 'required');
+        $this->form_validation->set_rules('perihal', 'Perihal', 'required');
+        $this->form_validation->set_rules('diteruskan_kepada', 'Diteruskan Kepada', 'required');
+        $this->form_validation->set_rules('isi_disposisi', 'Isi Disposisi', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/updateDisposisi', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = [
+                'surat_dari' => $this->input->post('surat_dari'),
+                'tgl_surat' => $this->input->post('tgl_surat'),
+                'no_surat' => $this->input->post('no_surat'),
+                'diterima_tgl' => $this->input->post('diterima_tgl'),
+                'no_agenda' => $this->input->post('no_agenda'),
+                'perihal' => $this->input->post('perihal'),
+                'diteruskan_kepada' => $this->input->post('diteruskan_kepada'),
+                'isi_disposisi' => $this->input->post('isi_disposisi')
+            ];
+            // $this->db->insert('disposisi', $data);
+            $this->surat_model->edit_disposisi($id_disposisi);
+            $this->session->set_flashdata('message', 
+                '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Surat disposisi berhasil dihapus!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>');
+        
+            redirect('user/disposisi', 'refresh');
+        }
+    }
+
+    public function updateAksiDisposisi(){
+        $id_disposisi = $this->input->post('id_disposisi');
+        $surat_dari = $this->input->post('surat_dari');
+        $tgl_surat = $this->input->post('tgl_surat');
+        $no_surat = $this->input->post('no_surat');
+        $diterima_tgl = $this->input->post('diterima_tgl');
+        $no_agenda = $this->input->post('no_agenda');
+        $perihal = $this->input->post('perihal');
+        $isi_disposisi = $this->input->post('isi_disposisi');
+        
+        $data = array (
+            'surat_dari' => $surat_dari,
+            'tgl_surat' => $tgl_surat,
+            'no_surat' => $no_surat,
+            'diterima_tgl' => $diterima_tgl,
+            'no_agenda' => $no_agenda,
+            'perihal' => $perihal,
+            'isi_disposisi' => $isi_disposisi
+        );
+
+        $where = array(
+            'id_disposisi' => $id_disposisi
+        );
+
+        $this->surat_model->update_data($where, $data, 'disposisi');
+        $this->session->set_flashdata('message', 
+                '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Surat disposisi berhasil di edit!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>');
+        
+            redirect('user/disposisi', 'refresh');
+    }
+
+    public function deleteDisposisi($id)
+    {
+        $this->surat_model->hapus_disposisi($id);
+        
+        $this->session->set_flashdata('message', 
+        '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Surat disposisi berhasil dihapus!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>');
+        
+        redirect('user/disposisi');
+    }
+
+    public function detail($id_disposisi){
+        $data['title'] = 'Detail Surat Disposisi';
+        $data['user'] = $this->db->get_where('user', ['username' =>
+        $this->session->userdata('username')])->row_array();
+
+        $data['disposisi'] = $this->db->get('disposisi')->result_array();
+        $data['detail'] = $this->surat_model->ambil_id_disposisi($id_disposisi);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/detailDisposisi', $data);
+        $this->load->view('templates/footer');
+    }
 }
